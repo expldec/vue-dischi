@@ -1,5 +1,5 @@
 <template>
-  <header class="p-3">
+  <header>
     <div class="header__logo rounded-circle">
       <img src="../assets/discogs-record-icon.svg" alt="" />
     </div>
@@ -17,6 +17,7 @@ export default {
 @import "../style/common.scss";
 header {
   min-height: 4rem;
+  padding: 0.5rem;
   background-color: $background-secondary;
   display: flex;
   justify-content: flex-start;
