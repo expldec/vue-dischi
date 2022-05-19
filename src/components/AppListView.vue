@@ -1,6 +1,8 @@
 <template>
   <div class="app-list__container container">
-      <div class="row row-cols-2 row-cols-md-4"><AppAlbumCard :album='discList[0]' /></div>
+    <div class="row row-cols-2 row-cols-md-4 g-2">
+      <AppAlbumCard v-for="(item, index) in discList" :key="index" :album="item" />
+    </div>
   </div>
 </template>
 

@@ -28,8 +28,6 @@ export default {
 }
 main {
   background-color: $background-primary;
-  display: flex;
-  flex-direction: column;
-  height: calc(100% - 4rem);
+  min-height: calc(100% - 4rem);
 }
 </style>

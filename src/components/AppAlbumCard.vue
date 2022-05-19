@@ -1,11 +1,12 @@
 <template>
-  <div class="album-card text-center p-3">
-    <img class="rounded-circle" :src="album.poster" alt="" />
-    <h2 class="album-title fw-bold mt-3">{{ album.title }}</h2>
-
-    <p>{{ album.author }}</p>
-    <p class="fw-bold">{{ album.year }}</p>
-    <p class="fw-bold">{{ album.genre }}</p>
+  <div class="col">
+    <div class="album-card p-2 text-center">
+        <img class="img-fluid" :src="album.poster" alt="" />
+        <h2 class="album-title fw-bold mt-3">{{ album.title }}</h2>
+    
+        <p>{{ album.author }}</p>
+        <div>{{ album.year }} &centerdot; {{ album.genre }}</div>
+    </div>
   </div>
 </template>
 
@@ -24,12 +25,15 @@ export default {
 
 .album-card {
   background-color: $background-secondary;
+  height: 100%;
   .album-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
-  }
-  img {
-    width: 100%;
+    &~* {
+        color:$text-lowcontrast-color;
+        margin-bottom: 0.2rem;
+        font-weight: 500;
+    }
   }
 }
 </style>
