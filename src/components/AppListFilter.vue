@@ -3,10 +3,7 @@
     <div class="form-group flex-grow-1">
       <select class="form-select d-flex" aria-label="Genre Select" v-model="genreSelect" @change="$emit('pickedGenre', genreSelect)">
           <option selected value>All genres</option>
-          <option value="rock">Rock</option>
-          <option value="pop">Pop</option>
-          <option value="jazz">Jazz</option>
-          <option value="metal">Metal</option>
+          <option v-for="(item,index) in genres" :key="index" :value="item.toLowerCase()">{{ item }}</option>
       </select>
     </div>
     <div class="form-group flex-grow-1">
@@ -31,6 +28,7 @@ export default {
     },
     props: {
         artists: Array,
+        genres: Array,
     }
 }
 </script>

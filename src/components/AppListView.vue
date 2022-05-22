@@ -1,7 +1,7 @@
 <template>
   <AppLoading v-if="loading" />
   <div v-else class="app-list__container container">
-      <AppListFilter @pickedGenre="updateFilter('genre',$event)" @pickedArtist="updateFilter('artist',$event)" :artists="artistArray"/>
+      <AppListFilter @pickedGenre="updateFilter('genre',$event)" @pickedArtist="updateFilter('artist',$event)" :artists="artistArray"  :genres="genreArray"/>
     <div class="row row-cols-2 row-cols-md-4 g-2">
       <AppAlbumCard v-for="(item, index) in filteredAlbums" :key="index" :album="item" />
     </div>
@@ -35,6 +35,17 @@ export default {
     updateFilter(key, filter) {
       this.filter[key] = filter;
     },
+    getUniques(array, key) {
+      const uniqueArray = array.reduce(              // qui ho voluto usare reduce per creare gli array degli artisti/generi
+        (previous, current) => {                      // a ogni giro del reduce, prende il risultato del giro prima
+          if (!previous.includes(current[key])) {     // se l'array che stiamo costruendo NON include già il valore di questo giro
+            previous.push(current[key]);              //    Pushamo il valore nell'array
+          }
+          return previous;                          // passiamo l'array così modificato al prossimo giro del reduce
+        }, []                                         // valore del previous nel primo giro (array vuoto)
+      );
+      return uniqueArray;
+    } 
   },
   computed: {
     filteredAlbums: function() {
@@ -44,15 +55,10 @@ export default {
       return filteredAlbums;
     },
     artistArray: function() {
-      const artistArray = this.discList.reduce(       // qui ho voluto usare reduce per creare l'array degli artisti
-        (previous, current) => {                      // a ogni giro del reduce, prende il risultato del giro prima
-          if (!previous.includes(current.author)) {   // se l'array che stiamo costruendo NON include già l'artista di questo giro
-            previous.push(current.author);            //    Pushamo l'artista nell'array
-            return previous;                          // passiamo l'array così modificato al prossimo giro del reduce
-          }
-        }, []                                         // valore del previous nel primo giro (array vuoto)
-      );
-      return artistArray
+      return this.getUniques(this.filteredAlbums,'author')
+    },
+    genreArray: function() {
+      return this.getUniques(this.filteredAlbums,'genre')
     },
   },
   created() {
